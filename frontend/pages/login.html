@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasiye - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        body { min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+        .login-container { width: 100%; max-width: 440px; }
+        .login-card { background: white; border-radius: 2rem; padding: 2.2rem 2rem; box-shadow: 0 25px 50px rgba(0,0,0,0.15); animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .logo-section { text-align: center; margin-bottom: 1.8rem; }
+        .logo-icon { width: 65px; height: 65px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 1.4rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+        .logo-icon i { font-size: 2.2rem; color: white; }
+        .logo-section h1 { font-size: 1.9rem; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo-section p { color: #64748b; font-size: 0.8rem; margin-top: 0.3rem; }
+        .subtitle { text-align: center; color: #475569; margin-bottom: 1.8rem; font-size: 0.85rem; }
+        .input-group { margin-bottom: 1.4rem; }
+        .input-label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #334155; font-size: 0.8rem; }
+        .input-wrapper { position: relative; }
+        .input-wrapper i:first-child { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+        .input-wrapper input { width: 100%; padding: 0.85rem 1rem 0.85rem 2.6rem; border: 1.5px solid #e2e8f0; border-radius: 1.1rem; font-size: 0.95rem; outline: none; }
+        .input-wrapper input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+        .toggle-password { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #94a3b8; }
+        .login-btn { width: 100%; padding: 0.9rem; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 1.1rem; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 0.8rem; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102,126,234,0.35); }
+        .error-message { background: #fee2e2; color: #dc2626; padding: 0.7rem; border-radius: 0.9rem; margin-bottom: 1.4rem; font-size: 0.8rem; text-align: center; display: none; }
+        .demo-credentials { margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; text-align: center; }
+        .demo-badge-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 0.8rem; }
+        .demo-badge { background: #f1f5f9; padding: 0.4rem 0.9rem; border-radius: 2rem; font-size: 0.75rem; cursor: pointer; }
+        .demo-badge span { font-weight: 700; color: #667eea; }
+        .view-only-note { background: #fef3c7; padding: 0.5rem; border-radius: 0.5rem; text-align: center; font-size: 0.7rem; margin-top: 1rem; color: #92400e; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+                <h1>Nasiye</h1>
+                <p>Insight Platform</p>
+            </div>
+            <!-- <p class="subtitle"><i class="fas fa-eye"></i> View Only Access</p> -->
+            <div id="errorMsg" class="error-message"><i class="fas fa-exclamation-triangle"></i> <span id="errorText">Invalid credentials</span></div>
+            <div class="input-group">
+                <label class="input-label">Username</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter username">
+                </div>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Enter password">
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+            </div>
+            <button class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i><span>Sign In</span></button>
+            <!-- <div class="demo-credentials">
+                <p><i class="fas fa-info-circle"></i> Demo Credentials</p>
+                <div class="demo-badge-container">
+                    <div class="demo-badge" data-username="admin" data-password="admin123"><span>admin</span> / admin123</div>
+                    <div class="demo-badge" data-username="user1" data-password="user123"><span>user1</span> / user123</div>
+                    <div class="demo-badge" data-username="manager" data-password="manager123"><span>manager</span> / manager123</div>
+                </div>
+            </div> -->
+            <!-- <div class="view-only-note"><i class="fas fa-eye"></i> View Only Mode - No Insert/Update/Delete</div> -->
+        </div>
+    </div>
+    <script>
+        const API_BASE = window.location.origin + '/api';
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const errorText = document.getElementById('errorText');
+        const togglePassword = document.getElementById('togglePassword');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        async function handleLogin() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            if (!username || !password) { errorText.innerText = 'Please enter both username and password'; errorMsg.style.display = 'block'; return; }
+            try {
+                const response = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem("role", data.role);
+                    localStorage.setItem("user", data.name);
+                    localStorage.setItem("username", data.username);
+                    localStorage.setItem("isLoggedIn", "true");
+                    window.location.href = "/dashboard";
+                } else {
+                    errorText.innerText = data.msg || 'Invalid username or password';
+                    errorMsg.style.display = 'block';
+                    passwordInput.value = '';
+                }
+            } catch (error) {
+                errorText.innerText = 'Network error. Please try again.';
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        document.querySelectorAll('.demo-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                usernameInput.value = this.getAttribute('data-username');
+                passwordInput.value = this.getAttribute('data-password');
+            });
+        });
+
+        loginBtn.addEventListener('click', handleLogin);
+        usernameInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+        passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+        
+        if (localStorage.getItem("isLoggedIn") === "true") { window.location.href = "/dashboard"; }
+        usernameInput.focus();
+    </script>
+</body>
+</html>

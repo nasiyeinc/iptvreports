@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasiye | Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="layout">
+    <div id="sidebar-container"></div>
+    <div class="main">
+        <div class="dashboard-header">
+            <div class="header-title">
+                <h2><i class="fas fa-chart-pie"></i> Analytics Dashboard</h2>
+                <p class="header-subtitle">Real-time insights & analytics</p>
+            </div>
+            <div class="user-watermark">
+                <i class="fas fa-fingerprint"></i>
+                <span id="watermarkName">Loading...</span>
+                <i class="fas fa-shield-alt"></i>
+            </div>
+        </div>
+        
+        <div class="date-filter-card">
+            <div class="filter-title">
+                <i class="fas fa-calendar-alt"></i> Date Range Filter
+                <span class="filter-badge" id="filterBadge">All Time</span>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label><i class="fas fa-calendar-day"></i> Start Date</label>
+                    <input type="date" id="startDate" class="date-input">
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-calendar-day"></i> End Date</label>
+                    <input type="date" id="endDate" class="date-input">
+                </div>
+                <button class="filter-btn" id="applyFilterBtn"><i class="fas fa-filter"></i> Apply Filter</button>
+                <button class="filter-btn reset-btn" id="resetFilterBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" onclick="window.location.href='/customers'">
+                <div class="stat-icon purple"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <div class="stat-label">Total Customers</div>
+                    <div class="stat-value" id="totalCustomers">0</div>
+                    <div class="stat-trend"><i class="fas fa-chart-line"></i> All registered customers</div>
+                </div>
+            </div>
+            <div class="stat-card" onclick="window.location.href='/reports'">
+                <div class="stat-icon orange"><i class="fas fa-tv"></i></div>
+                <div class="stat-info">
+                    <div class="stat-label">IPTV Reports</div>
+                    <div class="stat-value" id="totalReports">0</div>
+                    <div class="stat-trend"><i class="fas fa-chart-bar"></i> Total viewing reports</div>
+                </div>
+            </div>
+            <div class="stat-card" onclick="alert('Unique streams: Distinct content streams watched by users')">
+                <div class="stat-icon green"><i class="fas fa-stream"></i></div>
+                <div class="stat-info">
+                    <div class="stat-label">Unique Streams</div>
+                    <div class="stat-value" id="uniqueStreams">0</div>
+                    <div class="stat-trend"><i class="fas fa-video"></i> Distinct content streams</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-card">
+                <div class="chart-header"><h4><i class="fas fa-chart-line"></i> New Customers Trend</h4><span class="chart-badge">Click on points for details</span></div>
+                <canvas id="customersTrendChart" height="250"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header"><h4><i class="fas fa-chart-bar"></i> IPTV Reports Trend</h4><span class="chart-badge">Click on bars for details</span></div>
+                <canvas id="reportsTrendChart" height="250"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-card full-width">
+                <div class="chart-header"><h4><i class="fas fa-building"></i> Customers by Center (Xarunta)</h4><span class="chart-badge">Click on any center to view details</span></div>
+                <div id="xaruntaStats" class="xarunta-grid">Loading...</div>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-card">
+                <div class="chart-header"><h4><i class="fas fa-user-plus"></i> Recent Customers</h4><span class="chart-badge">Latest 10 registrations</span></div>
+                <div id="recentCustomers" class="recent-list">Loading...</div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header"><h4><i class="fas fa-history"></i> Recent IPTV Reports</h4><span class="chart-badge">Latest 10 activities</span></div>
+                <div id="recentReports" class="recent-list">Loading...</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/app.js"></script>
+<script>initDashboardPage();</script>
+</body>
+</html>

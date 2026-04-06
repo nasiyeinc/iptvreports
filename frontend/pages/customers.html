@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasiye | Customers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="layout">
+    <div id="sidebar-container"></div>
+    <div class="main">
+        <h2><i class="fas fa-users"></i> Customer Management <span class="view-only-badge"><i class="fas fa-eye"></i> View Only</span></h2>
+        
+        <div class="date-filter-card">
+            <div class="filter-title">Filter Customers by Registration Date</div>
+            <div class="filter-row">
+                <div class="filter-group"><label>Start Date</label><input type="date" id="startDate" class="date-input"></div>
+                <div class="filter-group"><label>End Date</label><input type="date" id="endDate" class="date-input"></div>
+                <button class="filter-btn" id="applyFilterBtn">Apply Filter</button>
+                <button class="filter-btn reset-btn" id="resetFilterBtn">Reset</button>
+            </div>
+            <div class="date-hint"><i class="fas fa-info-circle"></i> Select date range to filter customers by creation date</div>
+        </div>
+
+        <div id="customersContainer"><div class="loading-spinner">Loading customers...</div></div>
+    </div>
+</div>
+<script src="/js/app.js"></script>
+<script>
+    initCustomersPage();
+</script>
+</body>
+</html>
