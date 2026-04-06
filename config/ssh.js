@@ -9,9 +9,9 @@ const createTunnel = () => {
       host: process.env.SSH_HOST,
       port: Number(process.env.SSH_PORT),
       dstHost: '127.0.0.1',
-      dstPort: 27017,
+      dstPort: 27018,
       localHost: '127.0.0.1',
-      localPort: 27017,
+      localPort: 27018,
       keepAlive: true,
       retryMax: 3
     };
