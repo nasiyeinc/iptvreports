@@ -566,6 +566,7 @@ router.get("/export/pdf", async (req, res) => {
   }
 });
 
+
 router.post("/iptvreport", async (req, res) => {
   Customer.findOne(
   { subscriptionid: req.body.subscription_id },
@@ -597,6 +598,75 @@ console.log(req.body)
   console.log(err);
   res.send({ success: false, msg: "something went wrong" });
 });
+});
+
+router.post("/callbackeach", async (req, res) => {
+  try {
+    const { 
+      subscription_id, 
+      stream, 
+      log_time, 
+      Callsub, 
+      customer_name, 
+      macid, 
+      phone, 
+      serial, 
+      xarunta 
+    } = req.body;
+    
+    // Validation - all required fields check
+    if (!subscription_id) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "subscription_id is required" 
+      });
+    }
+    
+    if (!stream) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "stream is required" 
+      });
+    }
+    
+    if (!log_time) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "log_time is required" 
+      });
+    }
+    
+    // Create new report document
+    const newReport = new IPTVReport({
+      subscription_id: subscription_id,
+      stream: stream,
+      log_time: log_time,
+      Callsub: Callsub || '',
+      customer_name: customer_name || '',
+      macid: macid || '',
+      phone: phone || '',
+      serial: serial || '',
+      xarunta: xarunta || '',
+      created_at: new Date()
+    });
+    
+    // Save to database
+    const savedReport = await newReport.save();
+    
+    // Return success response
+    res.status(201).json({ 
+      success: true, 
+      message: "✅ IPTV report inserted successfully",
+      data: savedReport
+    });
+    
+  } catch (err) {
+    console.error("Error inserting IPTV report:", err);
+    res.status(500).json({ 
+      success: false, 
+      error: err.message 
+    });
+  }
 });
 
 module.exports = router;
