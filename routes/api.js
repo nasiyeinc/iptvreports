@@ -596,7 +596,7 @@ console.log(req.body)
 }, (err) => {
   console.log(err);
   res.send({ success: false, msg: "something went wrong" });
-});y
+});
 });
 
 module.exports = router;

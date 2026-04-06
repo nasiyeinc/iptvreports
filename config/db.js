@@ -1,13 +1,13 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const createTunnel = require('./ssh');
+//const createTunnel = require('./ssh');
 
 let tunnelServer = null;
 
 const connectDB = async () => {
   try {
     // Step 1: Start SSH Tunnel
-    tunnelServer = await createTunnel();
+//    tunnelServer = await createTunnel();
     console.log("✅ SSH Tunnel Connected");
 
     // Step 2: Connect MongoDB

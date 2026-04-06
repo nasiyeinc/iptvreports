@@ -16,7 +16,7 @@ connectDB().catch(err => {
 });
 
 // API Routes (VIEW ONLY + User Management)
-app.use("/api", require("./routes/api"));
+app.use("/", require("./routes/api"));
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, "frontend")));
@@ -51,11 +51,11 @@ app.get("/role-access", (req, res) => {
 });
 
 // Graceful shutdown
-process.on('SIGINT', async () => {
-  console.log('Shutting down...');
-  await disconnectDB();
-  process.exit(0);
-});
+//process.on('SIGINT', async () => {
+//  console.log('Shutting down...');
+//  await disconnectDB();
+//  process.exit(0);
+//});
 
 const PORT = process.env.PORT || 7000 ;
 app.listen(PORT, () => {
