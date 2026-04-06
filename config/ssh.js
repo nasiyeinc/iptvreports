@@ -11,7 +11,7 @@ const createTunnel = () => {
       dstHost: '127.0.0.1',
       dstPort: 27017,
       localHost: '127.0.0.1',
-      localPort: 27018,
+      localPort: 27017,
       keepAlive: true,
       retryMax: 3
     };
@@ -23,7 +23,7 @@ const createTunnel = () => {
         console.error("❌ SSH ERROR:", error.message);
         reject(error);
       } else {
-        console.log("✅ SSH Tunnel Ready on port 27018");
+        console.log("✅ SSH Tunnel Ready on port 27017");
         resolve(server);
       }
     });

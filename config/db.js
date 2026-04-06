@@ -11,10 +11,10 @@ const connectDB = async () => {
     console.log("✅ SSH Tunnel Connected");
 
     // Step 2: Connect MongoDB
-    const uri = `mongodb://127.0.0.1:27018/${process.env.MONGO_DB}`;
+    const uri = `mongodb://127.0.0.1:27017/${process.env.MONGO_DB}`;
 
     await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 5000 ,
     });
 
     console.log("✅ MongoDB Connected Successfully");
