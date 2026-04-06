@@ -6,7 +6,7 @@ const XLSX = require("xlsx");
 const PDFDocument = require("pdfkit");
 
 // ==================== AUTHENTICATION ====================
-router.post("/login", async (req, res) => {
+router.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   
   try {
@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
 // ==================== USER MANAGEMENT (FULL CRUD) ====================
 
 // GET all users
-router.get("/users", async (req, res) => {
+router.get("/api/users", async (req, res) => {
   try {
     const users = await User.find({}).sort({ actionDate: -1 });
     res.json(users);
@@ -39,7 +39,7 @@ router.get("/users", async (req, res) => {
 });
 
 // GET single user by ID
-router.get("/users/:id", async (req, res) => {
+router.get("/api/users/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ msg: "User not found" });
@@ -50,7 +50,7 @@ router.get("/users/:id", async (req, res) => {
 });
 
 // CREATE new user
-router.post("/users", async (req, res) => {
+router.post("/api/users", async (req, res) => {
   try {
     const { mobile, username, password, type } = req.body;
     
@@ -76,7 +76,7 @@ router.post("/users", async (req, res) => {
 });
 
 // UPDATE user
-router.put("/users/:id", async (req, res) => {
+router.put("/api/users/:id", async (req, res) => {
   try {
     const { mobile, username, password, type } = req.body;
     
@@ -108,7 +108,7 @@ router.put("/users/:id", async (req, res) => {
 });
 
 // DELETE user
-router.delete("/users/:id", async (req, res) => {
+router.delete("/api/users/:id", async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
     if (!deletedUser) {
@@ -123,7 +123,7 @@ router.delete("/users/:id", async (req, res) => {
 // ==================== CUSTOMERS - VIEW ONLY ====================
 
 // GET customers with date range filter
-router.get("/customers", async (req, res) => {
+router.get("/api/customers", async (req, res) => {
   try {
     const { startDate, endDate, page = 1, limit = 50 } = req.query;
     let query = {};
@@ -156,7 +156,7 @@ router.get("/customers", async (req, res) => {
 });
 
 // GET single customer by ID (VIEW ONLY)
-router.get("/customers/:id", async (req, res) => {
+router.get("/api/customers/:id", async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.id);
     if (!customer) {
@@ -171,7 +171,7 @@ router.get("/customers/:id", async (req, res) => {
 // ==================== IPTV REPORTS - VIEW ONLY ====================
 
 // GET IPTV reports with date range filter
-router.get("/iptv-reports", async (req, res) => {
+router.get("/api/iptv-reports", async (req, res) => {
   try {
     const { startDate, endDate, page = 1, limit = 50, search } = req.query;
     let query = {};
@@ -212,7 +212,7 @@ router.get("/iptv-reports", async (req, res) => {
 });
 
 // GET reports by subscription ID
-router.get("/iptv-reports/subscription/:subscriptionId", async (req, res) => {
+router.get("/api/iptv-reports/subscription/:subscriptionId", async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
     let query = { subscription_id: req.params.subscriptionId };
@@ -234,7 +234,7 @@ router.get("/iptv-reports/subscription/:subscriptionId", async (req, res) => {
 // ==================== IPTV REPORTS INSERT (API) ====================
 
 // INSERT single IPTV report
-router.post("/iptv-reports", async (req, res) => {
+router.post("/api/iptv-reports", async (req, res) => {
   try {
     const { subscription_id, stream, log_time, Callsub, customer_name, macid, phone, serial, xarunta } = req.body;
     
@@ -259,7 +259,7 @@ router.post("/iptv-reports", async (req, res) => {
 });
 
 // INSERT multiple IPTV reports
-router.post("/iptv-reports/bulk", async (req, res) => {
+router.post("/api/iptv-reports/bulk", async (req, res) => {
   try {
     const reports = req.body.reports;
     if (!Array.isArray(reports)) {
@@ -280,7 +280,7 @@ router.post("/iptv-reports/bulk", async (req, res) => {
 
 // ==================== DASHBOARD SUMMARY - DYNAMIC WITH DATE RANGE ====================
 
-router.get("/summary", async (req, res) => {
+router.get("/api/summary", async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
     let customerQuery = {};
@@ -356,7 +356,7 @@ router.get("/summary", async (req, res) => {
 
 // ==================== CUSTOMER WITH THEIR REPORTS ====================
 
-router.get("/customer-full/:subscriptionId", async (req, res) => {
+router.get("/api/customer-full/:subscriptionId", async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
     const subscriptionId = req.params.subscriptionId;
@@ -392,7 +392,7 @@ router.get("/customer-full/:subscriptionId", async (req, res) => {
 // ==================== EXPORT FUNCTIONS (VIEW ONLY) ====================
 
 // Export Customers to Excel with date filter
-router.get("/export/customers-excel", async (req, res) => {
+router.get("/api/export/customers-excel", async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
     let query = {};
@@ -432,7 +432,7 @@ router.get("/export/customers-excel", async (req, res) => {
 });
 
 // Export IPTV Reports to Excel with date filter
-router.get("/export/iptv-excel", async (req, res) => {
+router.get("/api/export/iptv-excel", async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
     let query = {};
@@ -471,7 +471,7 @@ router.get("/export/iptv-excel", async (req, res) => {
 });
 
 // Export to PDF
-router.get("/export/pdf", async (req, res) => {
+router.get("/api/export/pdf", async (req, res) => {
   try {
     const { type, startDate, endDate } = req.query;
     let data = [];

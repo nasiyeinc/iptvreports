@@ -11,7 +11,7 @@ if (!isLoginPage) {
 
 const loggedUser = localStorage.getItem("user") || "Admin";
 const userRole = localStorage.getItem("role") || "normal";
-const API_BASE = window.location.origin + '/';
+const API_BASE = window.location.origin + '/api';
 
 // Global variables
 let customersChart, reportsChart, dailyChart;
